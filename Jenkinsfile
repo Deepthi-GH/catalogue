@@ -37,6 +37,20 @@ pipeline {
              
             }
         }
+
+         stage('Build Image') {
+            steps {
+                script { 
+                     sh """
+                        docker build -t kattika:${appVersion} .
+                        docker images
+
+                     """
+                }
+             
+            }
+        }
+
         stage('Deploy') {
             //  input {
             //     message "Should we continue?"
