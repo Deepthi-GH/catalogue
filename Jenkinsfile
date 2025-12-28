@@ -52,6 +52,27 @@ pipeline {
              
             }
         }
+           // Here we need to select scanner tool and send the analysis to the server
+           stage('Sonar Scan') {
+                environment {
+                    def scannerHome = tool 'sonar-8.0'
+                }
+                steps {
+                    script {
+                        withSonarQubeEnv('sonar-server') {
+                            sh "${scannerHome}/bin/sonar-scanner"
+                                     }
+                    }
+                }
+            }
+            
+            stage('Quality Gate') {
+                steps {
+                   timeout(time: 1, unit: 'HOURS') {
+                    waitForQualityGate abortPipeline: true
+                   }
+                }
+            }
 
          stage('Build Image') {
             steps {
