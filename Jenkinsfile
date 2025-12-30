@@ -143,7 +143,7 @@ pipeline {
         }
 
         stage('Trivy Security Scan') {
-            stpes {
+            steps {
                 script {
                     sh """
                         trivy image \
