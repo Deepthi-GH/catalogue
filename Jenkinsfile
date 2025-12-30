@@ -142,6 +142,22 @@ pipeline {
             }
         }
 
+        stage('Trivy Security Scan') {
+            stpes {
+                script {
+                    sh """
+                        trivy image \
+                            --scanners vuln \
+                            --severity HIGH,CRITICAL,MEDIUM \
+                            --pkg-types os \
+                            --exit-code 1 \
+                            --no-progress \
+                            ${ACC_ID}.dkr.ecr.us-east-1.amazonaws.com/${PROJECT}/${COMPONENT}:${appVersion}
+                    """
+                }
+            }
+        }
+
         stage('Deploy') {
             //  input {
             //     message "Should we continue?"
