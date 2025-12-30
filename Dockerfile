@@ -6,7 +6,7 @@ COPY *.js .
 RUN npm install 
 
 # this is the final image. after copying it deletes above image
-FROM node:20.19.5-alpine3.21
+FROM node:20.19.5-alpine3.22
 WORKDIR /opt/server 
 # RUN apk update && \
 #     apk upgrade --no-cache
