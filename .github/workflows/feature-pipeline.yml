@@ -2,9 +2,6 @@ name: feature-pipeline
 on: [push]
 jobs:
   feature-pipeline:
-    runs-on: self-hosted
-    steps:
-    - name: call reusable workflow.
       uses: Deepthi-GH/workflows/.github/workflows/feature-nodejs-pipeline.yml@main
       with:
         project: roboshop
